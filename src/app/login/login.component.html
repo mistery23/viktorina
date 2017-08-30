@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="top-section">
   <div class="left-icon icon-user"></div>
   <div class="text">
@@ -6,7 +7,7 @@
 </div>
 <div class="login-section">
   <div class="login-inner">
-    <input type="text" class="form-control" placeholder="Введите имя">
-    <button class="btn"></button>
+    <input type="text" class="form-control" placeholder="Введите имя" [(ngModel)]="user" />
+    <button class="btn" (click)="login()"></button>
   </div>
 </div>

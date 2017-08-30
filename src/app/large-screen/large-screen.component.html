@@ -1,37 +1,14 @@
-<div class="list-of-participants hidden">
+<app-header></app-header>
+<div class="list-of-participants">
   <div class="top-title">Список участников</div>
   <div class="list">
-    <div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-    <div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div><div class="item">
-    <div class="number">1</div>
-    <div class="text">Иванов Иван</div>
-    </div><div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-    <div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-    <div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div><div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-    <div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
+    <div class="item" *ngFor="let user of users; let i = index">
+      <div class="number">{{i + 1}}</div>
+      <div class="text">{{user.firstName}}</div>
     </div>
   </div>
 </div>
+
 <div class="winners hidden">
   <div class="top-title">Победители</div>
   <div class="list">
@@ -49,7 +26,7 @@
     </div>
   </div>
 </div>
-<div class="statistics">
+<div class="statistics hidden">
   <div class="top-title">Статистика ответов</div>
   <div class="statistics-question">
     <div class="title">

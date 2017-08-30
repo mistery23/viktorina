@@ -1,13 +1,13 @@
+<app-header></app-header>
 <div class="admin-btns-group">
   <button type="button">Время вышло</button>
-  <button type="button">Следующий вопрос</button>
+  <button type="button" (click)="setCurrentIssue()">Следующий вопрос</button>
 </div>
 
 <div class="top-section">
   <div class="left-icon icon-question"></div>
   <div class="text">
-    <div class="number">1)</div>
-    Что такое резервная емкость АКБ?
+    <div class="number">{{currentIssue?.number}})</div>{{currentIssue?.question}}
   </div>
 </div>
 
