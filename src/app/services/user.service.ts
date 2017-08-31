@@ -25,6 +25,21 @@ export class UserService {
     return this.currentIssue;
   }
 
+  nextQuestion(countIssue) {
+    let currentIssue = this.db.object(`/users/CurrentIssue`);
+    currentIssue.set(countIssue);
+  }
+
+  clearRoom() {
+    let currentIssue = this.db.object(`/users/CurrentIssue`);
+    currentIssue.set({});
+  }
+
+  startGame(countIssue) {
+    let currentIssue = this.db.object(`/users/CurrentIssue`);
+    currentIssue.set(countIssue);
+  }
+
   login(usenName:string) {
     firebase.auth().signInAnonymously();
     firebase.auth().onAuthStateChanged(user => {
@@ -41,9 +56,6 @@ export class UserService {
     });
   }
 
-  setCurrentIssue(countIssue) {
-    let currentIssue = this.db.object(`/users/CurrentIssue`);
-    currentIssue.set(countIssue);
-  }
+
 
 }

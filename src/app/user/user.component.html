@@ -1,29 +1,16 @@
 <app-header-user></app-header-user>
-<div class="top-section">
+
+<div class="top-section" >
   <div class="left-icon icon-question"></div>
-  <div class="text">
-    <div class="number">1)</div>
-    Что такое резервная емкость АКБ?
+  <div class="text" *ngIf="currentIssue?.number">
+    <div class="number">{{currentIssue?.number}})</div>{{currentIssue?.question}}
   </div>
+  <div class="text" *ngIf="!currentIssue?.number">Ожидайте начала игры!</div>
 </div>
 
-<div class="answer-options">
-  <div class="possible-answer">
-      <div class="number">1</div>
-      <div class="text">Что-то с чем-то</div>
-  </div>
-  <div class="possible-answer active">
-    <div class="number">2</div>
-    <div class="text">Время аварийного
-      электропитания потребителей
-      при отсутствии зарядного тока</div>
-  </div>
-  <div class="possible-answer">
-    <div class="number">3</div>
-    <div class="text">Перезаряд аккумулятора</div>
-  </div>
-  <div class="possible-answer">
-    <div class="number">4</div>
-    <div class="text">Периодическая подзарядка АКБ</div>
+<div class="answer-options" *ngIf="currentIssue?.number">
+  <div class="possible-answer" *ngFor="let item of currentIssue?.answers; let i = index">
+    <div class="number">{{i + 1}}</div>
+    <div class="text">{{item.answer}}</div>
   </div>
 </div>

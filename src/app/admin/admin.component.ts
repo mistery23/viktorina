@@ -12,9 +12,9 @@ export class AdminComponent implements OnInit {
   currentIssue: any;
 
   questionsList = {
-    0: {
+    1: {
       number: 1 ,
-      question: 'Что такое резервная емкость АКБ?' ,
+      question: 'Что такое резервная емкость АКБ?',
       answers: {
         0: {
           answer: 'Вгадай1!',
@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit {
         }
       }
     },
-    1: {
+    2: {
       number:2,
       question : 'Что такое резервная емкость АКБ?2',
       answers : {
@@ -63,10 +63,18 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentIssue().subscribe(issue => {
       this.currentIssue = issue;
-      console.log(issue);
+      // console.log(issue);
     });
   }
-  setCurrentIssue() {
-    this.userService.setCurrentIssue(this.questionsList[this.countIssue]);
+  nextQuestion() {
+    this.userService.nextQuestion(this.questionsList[this.countIssue]);
+  }
+
+  startGame() {
+    this.userService.startGame(this.questionsList[1]);
+  }
+
+  clearRoom() {
+    this.userService.clearRoom();
   }
 }
