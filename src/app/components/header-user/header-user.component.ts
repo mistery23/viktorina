@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../../models/User";
 import * as firebase from 'firebase/app';
 import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2/database";
 
@@ -10,9 +9,7 @@ import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2/databa
 })
 export class HeaderUserComponent implements OnInit {
 
-  showProfile: true;
-
-  user: FirebaseObjectObservable<User>;
+  user: any;
 
   constructor(public db:AngularFireDatabase) { }
 

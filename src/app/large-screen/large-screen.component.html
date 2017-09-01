@@ -1,104 +1,96 @@
 <app-header></app-header>
-<div class="list-of-participants">
-  <div class="top-title">Список участников</div>
-  <div class="list">
-    <div class="item" *ngFor="let user of users; let i = index">
-      <div class="number">{{i + 1}}</div>
-      <div class="text">{{user.firstName}}</div>
+
+<div [ngSwitch]="settings?.largeScreen">
+  <div class="statistics" *ngSwitchCase="'statistics'">
+    <div class="top-title">Статистика ответов</div>
+    <div class="statistics-question">
+      <div class="title">
+        <div class="number">{{statistics?.number}})</div>
+        <div class="text">{{statistics?.question}}</div>
+      </div>
+      <div class="statistics-block">
+          <div class="item" *ngFor="let answer of statistics?.answers" [ngClass]="{hidden: (answer?.issue | lengthOfArray) == 0}">
+            <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.text, success: statistics?.correct == answer?.text.text}"></div>
+            <div class="content">
+              <div class="text">
+                Ответили: {{answer?.text.text}}
+              </div>
+              <div class="progress-wrapp">
+                <div class="progress-number">
+                  {{answer?.issue | lengthOfArray}}
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" [ngStyle]="{ 'width.%': 100 / (users | lengthOfArray) * (answer?.issue | lengthOfArray)}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item" *ngIf="(users | lengthOfArray) - (statistics?.countIssue ? (statistics?.countIssue | lengthOfArray) : 0)">
+            <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.text, success: statistics?.correct == answer?.text.text}"></div>
+            <div class="content">
+              <div class="text">
+                Воздержались:
+              </div>
+              <div class="progress-wrapp">
+                <div class="progress-number">
+                  {{ (users | lengthOfArray) - (statistics?.countIssue | lengthOfArray)}}
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" [ngStyle]="{ 'width.%': 100 / (users | lengthOfArray) * ((users | lengthOfArray) - (statistics?.countIssue ? (statistics?.countIssue | lengthOfArray) : 0)) }"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="winners" *ngSwitchCase="'winners'">
+    <div class="top-title">Победители</div>
+    <div class="list">
+      <div class="item">
+        <div class="number">1</div>
+        <div class="text">Иванов Иван</div>
+      </div>
+      <div class="item">
+        <div class="number">2</div>
+        <div class="text">Иванов Иван</div>
+      </div>
+      <div class="item">
+        <div class="number">3</div>
+        <div class="text">Иванов Иван</div>
+      </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'question'">
+    <div class="top-section" >
+      <div class="left-icon icon-question"></div>
+      <div class="text" *ngIf="currentIssue?.number">
+        <div class="number">{{currentIssue?.number}})</div>{{currentIssue?.question}}
+      </div>
+      <div class="text" *ngIf="!currentIssue?.number">Ожидайте начала игры!</div>
+    </div>
+
+    <div class="answer-options" *ngIf="currentIssue?.number">
+      <div class="possible-answer" *ngFor="let item of currentIssue?.answers; let i = index">
+        <div class="number">{{i + 1}}</div>
+        <div class="text">{{item.answer}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="list-of-participants" *ngSwitchDefault>
+    <div class="top-title">Список участников</div>
+    <div class="list">
+      <div class="item" *ngFor="let user of users; let i = index">
+        <div class="number">{{i + 1}}</div>
+        <div class="text">{{user.firstName}}</div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="winners hidden">
-  <div class="top-title">Победители</div>
-  <div class="list">
-    <div class="item">
-      <div class="number">1</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-    <div class="item">
-      <div class="number">2</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-    <div class="item">
-      <div class="number">3</div>
-      <div class="text">Иванов Иван</div>
-    </div>
-  </div>
-</div>
-<div class="statistics hidden">
-  <div class="top-title">Статистика ответов</div>
-  <div class="statistics-question">
-    <div class="title">
-      <div class="number">1)</div>
-      <div class="text">Время аварийного электропитания потребителей при отсутствии зарядного тока</div>
-    </div>
-    <div class="statistics-block">
-      <div class="item">
-        <div class="check danger"></div>
-        <div class="content">
-          <div class="text">
-            Время аварийного электропитания потребителей при отсутствии зарядного
-          </div>
-          <div class="progress-wrapp">
-            <div class="progress-number">
-              5%
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-success" style="width: 5%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="check danger"></div>
-        <div class="content">
-          <div class="text">
-            Время аварийного электропитания потребителей при отсутствии зарядного
-          </div>
-          <div class="progress-wrapp">
-            <div class="progress-number">
-              15%
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-success" style="width: 15%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="check danger"></div>
-        <div class="content">
-          <div class="text">
-            Время аварийного электропитания потребителей при отсутствии зарядного
-          </div>
-          <div class="progress-wrapp">
-            <div class="progress-number">
-              25%
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-success" style="width: 25%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="check success"></div>
-        <div class="content">
-          <div class="text">
-            Время аварийного электропитания потребителей при отсутствии зарядного
-          </div>
-          <div class="progress-wrapp">
-            <div class="progress-number">
-              35%
-            </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-success" style="width: 35%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
+
+
 

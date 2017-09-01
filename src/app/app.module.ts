@@ -15,18 +15,19 @@ import { UserResultComponent } from './user-result/user-result.component';
 import {UserService} from "./services/user.service";
 import {FormsModule} from "@angular/forms";
 import { HeaderUserComponent } from './components/header-user/header-user.component';
-// import {AuthGuard} from "./guards/auth.guard";
+import {AuthGuard} from "./guards/auth.guard";
+import {LengthOfArrayPipe} from "./pipes/length-of-array";
 
 
 
 const appRoutes: Routes =[
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'user', component: UserComponent},
+  {path: 'user', component: UserComponent, canActivate:[AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'large-screen', component: LargeScreenComponent},
-  {path: 'user-result', component: UserResultComponent},
-  { path: '**', redirectTo: '/login'}
+  {path: 'user-result', component: UserResultComponent, canActivate:[AuthGuard]},
+  { path: '**', redirectTo: '/user'}
 ];
 
 @NgModule({
@@ -38,7 +39,8 @@ const appRoutes: Routes =[
     AdminComponent,
     LargeScreenComponent,
     UserResultComponent,
-    HeaderUserComponent
+    HeaderUserComponent,
+    LengthOfArrayPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ const appRoutes: Routes =[
     AngularFireAuthModule
   ],
   providers: [
-    UserService
+    UserService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

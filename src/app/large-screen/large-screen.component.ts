@@ -10,6 +10,9 @@ import {User} from "../models/User";
 export class LargeScreenComponent implements OnInit {
 
   users: User[];
+  settings: any;
+  currentIssue: any;
+  statistics: any;
 
   constructor(public userService:UserService) { }
 
@@ -17,6 +20,14 @@ export class LargeScreenComponent implements OnInit {
     this.userService.getUsers().subscribe(users => {
       this.users = users;
     });
+    this.userService.getSettings().subscribe(settings => {
+      this.settings = settings;
+    });
+    this.userService.getCurrentIssue().subscribe(issue => {
+      this.currentIssue = issue;
+    });
+    this.userService.getStatistics().subscribe(statistics => {
+      this.statistics = statistics;
+    });
   }
-
 }
