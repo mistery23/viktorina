@@ -26,7 +26,6 @@ export class AdminComponent implements OnInit {
 
   nextQuestion(i) {
     if(i <  Object.keys(this.questionsList).length) {
-      console.log(i);
         this.userService.nextQuestion(this.questionsList[i]);
     } else {
         alert('Ето был последний вопрос');

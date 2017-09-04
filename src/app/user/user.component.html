@@ -7,7 +7,7 @@
   <div class="text" *ngIf="currentIssue?.number">
     <div class="number">{{currentIssue?.number}})</div>{{currentIssue?.question}}
   </div>
-  <div class="text" *ngIf="!currentIssue?.number">Ожидайте начала игры!</div>
+  <div class="text" *ngIf="!currentIssue?.number" routerLink="/login">Ожидайте начала игры!</div>
 </div>
 
 <div class="answer-options" *ngIf="currentIssue?.number">

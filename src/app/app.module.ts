@@ -18,6 +18,8 @@ import { HeaderUserComponent } from './components/header-user/header-user.compon
 import {AuthGuard} from "./guards/auth.guard";
 import {LengthOfArrayPipe} from "./pipes/length-of-array";
 import { AnswerDirective } from './directives/answer.directive';
+import {HttpModule} from "@angular/http";
+
 
 const appRoutes: Routes =[
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -48,7 +50,8 @@ const appRoutes: Routes =[
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpModule
   ],
   providers: [
     UserService,

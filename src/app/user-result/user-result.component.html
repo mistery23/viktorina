@@ -2,94 +2,21 @@
 <div class="results">
   <div class="top-title">Результаты</div>
   <div class="results-list">
-    <div class="item">
-      <div class="number">1)</div>
+    <div class="item" *ngFor="let item of questionsList; let i = index">
+      <div class="number">{{item?.number}})</div>
       <div class="content">
-        <div class="text">Время аварийного
-          электропитания потребителей
-          при отсутствии зарядного тока</div>
+        <div class="text">{{item?.question}}</div>
         <div class="results-block">
           <div class="answer">
             <div class="title">Правильный ответ</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
+            <div *ngFor="let itemAnswer of item?.answers; let id = index">
+              <div class="answer-text" *ngIf="id == item?.correct">{{itemAnswer?.answer}}</div>
+            </div>
           </div>
           <div class="answer">
-            <div class="check success"></div>
+            <div class="check success" [ngClass]="{success: user?.questions[i]?.checkIssue == item?.correct, danger: user?.questions[i]?.checkIssue != item?.correct}"></div>
             <div class="title">Вы ответили</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="number">2)</div>
-      <div class="content">
-        <div class="text">Время аварийного
-          электропитания потребителей
-          при отсутствии зарядного тока</div>
-        <div class="results-block">
-          <div class="answer">
-            <div class="title">Правильный ответ</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
-          </div>
-          <div class="answer">
-            <div class="check success"></div>
-            <div class="title">Вы ответили</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="number">3)</div>
-      <div class="content">
-        <div class="text">Время аварийного
-          электропитания потребителей
-          при отсутствии зарядного тока</div>
-        <div class="results-block">
-          <div class="answer">
-            <div class="title">Правильный ответ</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
-          </div>
-          <div class="answer">
-            <div class="check danger"></div>
-            <div class="title">Вы ответили</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="number">4)</div>
-      <div class="content">
-        <div class="text">Время аварийного
-          электропитания потребителей
-          при отсутствии зарядного тока</div>
-        <div class="results-block">
-          <div class="answer">
-            <div class="title">Правильный ответ</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
-          </div>
-          <div class="answer">
-            <div class="check danger"></div>
-            <div class="title">Вы ответили</div>
-            <div class="answer-text">Время аварийного
-              электропитания потребителей
-              при отсутствии зарядного тока</div>
+            <div class="answer-text">{{user?.questions[i]?.answer}}</div>
           </div>
         </div>
       </div>

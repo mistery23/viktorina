@@ -14,6 +14,7 @@ export class UserService {
   currentIssue: FirebaseObjectObservable<any>;
   settings: FirebaseObjectObservable<any>;
   statistics: FirebaseObjectObservable<any>;
+  allQuestions: FirebaseObjectObservable<any>;
   uid: string;
 
   constructor(public db:AngularFireDatabase, private router: Router) {
@@ -114,16 +115,20 @@ export class UserService {
         }
       }
     };
+
     this.users = this.db.list('/users') as FirebaseListObservable<User[]>;
     this.currentIssue = this.db.object(`/current-issue`) as FirebaseObjectObservable<any[]>;
     this.settings = this.db.object(`/settings`) as FirebaseObjectObservable<any[]>;
     this.statistics = this.db.object(`/statistics`) as FirebaseObjectObservable<any[]>;
+    this.allQuestions = this.db.object(`/questions`) as FirebaseObjectObservable<any[]>;
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.uid = user.uid;
         this.user = this.db.object(`/users/${user.uid}`);
       }
     });
+    this.setAllQuestions();
+
   }
 
   answer(numberIssue, checkIssue, answer) {
@@ -136,6 +141,14 @@ export class UserService {
         curentQuestion.update({answer: answer, checkIssue: checkIssue});
       }
     });
+  }
+
+  setAllQuestions() {
+    this.allQuestions.update(this.questionsList);
+  }
+
+  getAllQuestions() {
+    return this.allQuestions;
   }
 
   getQuestionsList() {
@@ -174,7 +187,7 @@ export class UserService {
     this.currentIssue.remove();
     this.statistics.remove();
     this.users.remove();
-    this.settings.update({largeScreen: ''});
+    this.settings.update({largeScreen: 'claer'});
   }
 
   startGame(countIssue) {
