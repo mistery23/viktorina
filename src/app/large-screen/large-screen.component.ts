@@ -9,7 +9,7 @@ import {User} from "../models/User";
 })
 export class LargeScreenComponent implements OnInit {
 
-  users: User[];
+  users: any;
   settings: any;
   currentIssue: any;
   statistics: any;

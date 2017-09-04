@@ -9,8 +9,8 @@
         <div class="text">{{statistics?.question}}</div>
       </div>
       <div class="statistics-block">
-          <div class="item" *ngFor="let answer of statistics?.answers" [ngClass]="{hidden: (answer?.issue | lengthOfArray) == 0}">
-            <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.text, success: statistics?.correct == answer?.text.text}"></div>
+          <div class="item" *ngFor="let answer of statistics?.answers">
+            <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.checkIssue, success: statistics?.correct == answer?.text.checkIssue}"></div>
             <div class="content">
               <div class="text">
                 Ответили: {{answer?.text.text}}
@@ -25,8 +25,8 @@
               </div>
             </div>
           </div>
-          <div class="item" *ngIf="(users | lengthOfArray) - (statistics?.countIssue ? (statistics?.countIssue | lengthOfArray) : 0)">
-            <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.text, success: statistics?.correct == answer?.text.text}"></div>
+          <div class="item" *ngIf="(users | lengthOfArray) > (statistics?.countIssue | lengthOfArray) ">
+            <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.checkIssue, success: statistics?.correct == answer?.text.checkIssue}"></div>
             <div class="content">
               <div class="text">
                 Воздержались:
@@ -36,7 +36,7 @@
                   {{ (users | lengthOfArray) - (statistics?.countIssue | lengthOfArray)}}
                 </div>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-success" [ngStyle]="{ 'width.%': 100 / (users | lengthOfArray) * ((users | lengthOfArray) - (statistics?.countIssue ? (statistics?.countIssue | lengthOfArray) : 0)) }"></div>
+                  <div class="progress-bar progress-bar-success" [ngStyle]="{ 'width.%': 100 / (users | lengthOfArray) * ((users | lengthOfArray) - (statistics?.countIssue | lengthOfArray)) }"></div>
                 </div>
               </div>
             </div>

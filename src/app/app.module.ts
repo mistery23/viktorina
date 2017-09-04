@@ -17,8 +17,7 @@ import {FormsModule} from "@angular/forms";
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {LengthOfArrayPipe} from "./pipes/length-of-array";
-
-
+import { AnswerDirective } from './directives/answer.directive';
 
 const appRoutes: Routes =[
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -40,7 +39,8 @@ const appRoutes: Routes =[
     LargeScreenComponent,
     UserResultComponent,
     HeaderUserComponent,
-    LengthOfArrayPipe
+    LengthOfArrayPipe,
+    AnswerDirective
   ],
   imports: [
     BrowserModule,

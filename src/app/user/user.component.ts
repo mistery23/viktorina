@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../services/user.service";
+import {FirebaseObjectObservable} from "angularfire2/database";
 
 @Component({
   selector: 'app-user',
@@ -8,9 +9,9 @@ import {UserService} from "../services/user.service";
 })
 export class UserComponent implements OnInit {
 
+  user: any;
   currentIssue: any;
   settings: any;
-  giveAnswer: boolean;
 
   constructor(public userService:UserService) { }
 
@@ -21,10 +22,13 @@ export class UserComponent implements OnInit {
     this.userService.getSettings().subscribe(settings => {
       this.settings = settings;
     });
+    this.userService.getUser().subscribe(user => {
+      this.user = user;
+    });
   }
 
-  answer(numberIssue, checkIssue, correctIssue) {
-    this.userService.answer(numberIssue, checkIssue, correctIssue);
+  answer(numberIssue, checkIssue, answer) {
+    this.userService.answer(numberIssue, checkIssue, answer);
   }
 
 }

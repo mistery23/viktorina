@@ -128,10 +128,21 @@ body {
       width: calc(100% - 100px);
       padding-right: 20px;
     }
+    .check-overlay {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
     &.active {
       .number {
         background: url("./assets/images/number-bg-active.png") center no-repeat;
         text-indent: 200px;
+      }
+      .check-overlay {
+        display: block;
       }
     }
   }

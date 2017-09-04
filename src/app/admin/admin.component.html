@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="admin-btns-group">
   <button type="button" (click)="timeOver()" *ngIf="currentIssue?.number && settings?.largeScreen != 'statistics'">Время вышло</button>
-  <button type="button" (click)="nextQuestion(currentIssue?.number + 1)" *ngIf="currentIssue?.number && settings?.largeScreen == 'statistics'">Следующий вопрос</button>
+  <button type="button" (click)="nextQuestion(currentIssue?.number)" *ngIf="currentIssue?.number && settings?.largeScreen == 'statistics'">Следующий вопрос</button>
   <button type="button" (click)="startGame()" *ngIf="!currentIssue?.number">Старт</button>
   <button type="button" (click)="clearRoom()" *ngIf="currentIssue?.number">Очистить комнату</button>
 </div>

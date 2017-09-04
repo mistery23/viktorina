@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-user-result',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserResultComponent implements OnInit {
 
-  constructor() { }
+  questionsList: any;
+
+  constructor(public userService:UserService) { }
 
   ngOnInit() {
+    this.questionsList = this.userService.getQuestionsList();
   }
 
 }

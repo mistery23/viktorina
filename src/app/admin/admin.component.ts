@@ -10,104 +10,7 @@ export class AdminComponent implements OnInit {
 
   currentIssue: any;
   settings: any;
-
-  questionsList = {
-    1: {
-      number: 1,
-      correct: 1,
-      question: 'Что такое резервная емкость АКБ?',
-      answers: {
-        0: {
-          answer: 'ответ1!'
-        },
-        1: {
-          answer: 'ответ2'
-        },
-        2: {
-          answer: 'ответ3'
-        },
-        3: {
-          answer: 'ответ4'
-        }
-      }
-    },
-    2: {
-      number:2,
-      correct: 1,
-      question : 'Что такое резервная емкость АКБ?2',
-      answers: {
-        0: {
-          answer: 'ответ1!'
-        },
-        1: {
-          answer: 'ответ2'
-        },
-        2: {
-          answer: 'ответ3'
-        },
-        3: {
-          answer: 'ответ4'
-        }
-      }
-    },
-    3: {
-      number:3,
-      correct: 1,
-      question : 'Что такое резервная емкость АКБ?3',
-      answers: {
-        0: {
-          answer: 'ответ1!'
-        },
-        1: {
-          answer: 'ответ2'
-        },
-        2: {
-          answer: 'ответ3'
-        },
-        3: {
-          answer: 'ответ4'
-        }
-      }
-    },
-    4: {
-      number:4,
-      correct: 1,
-      question : 'Что такое резервная емкость АКБ?4',
-      answers: {
-        0: {
-          answer: 'ответ1!'
-        },
-        1: {
-          answer: 'ответ2'
-        },
-        2: {
-          answer: 'ответ3'
-        },
-        3: {
-          answer: 'ответ4'
-        }
-      }
-    },
-    5: {
-      number: 5,
-      correct: 1,
-      question: 'Что такое резервная емкость АКБ?5',
-      answers: {
-        0: {
-          answer: 'ответ1!'
-        },
-        1: {
-          answer: 'ответ2'
-        },
-        2: {
-          answer: 'ответ3'
-        },
-        3: {
-          answer: 'ответ4'
-        }
-      }
-    }
-  };
+  questionsList: {};
 
   constructor(public userService:UserService) { }
 
@@ -118,10 +21,12 @@ export class AdminComponent implements OnInit {
     this.userService.getSettings().subscribe(settings => {
       this.settings = settings;
     });
+    this.questionsList = this.userService.getQuestionsList();
   }
 
   nextQuestion(i) {
-    if(i <=  Object.keys(this.questionsList).length) {
+    if(i <  Object.keys(this.questionsList).length) {
+      console.log(i);
         this.userService.nextQuestion(this.questionsList[i]);
     } else {
         alert('Ето был последний вопрос');
@@ -129,7 +34,7 @@ export class AdminComponent implements OnInit {
   }
 
   startGame() {
-    this.userService.startGame(this.questionsList[1]);
+    this.userService.startGame(this.questionsList[0]);
   }
 
   clearRoom() {

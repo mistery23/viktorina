@@ -20,7 +20,9 @@ export class LoginComponent implements OnInit  {
         let uid = user.uid;
         let item = this.db.object(`/users/${uid}`, { preserveSnapshot: true });
         item.subscribe(snapshot => {
-          this.user = snapshot.val().firstName;
+          if(snapshot.val().firstName) {
+            this.user = snapshot.val().firstName;
+          }
         });
       }
     });
