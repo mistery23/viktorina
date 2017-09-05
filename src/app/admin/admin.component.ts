@@ -11,6 +11,7 @@ export class AdminComponent implements OnInit {
   currentIssue: any;
   settings: any;
   questionsList: {};
+  finish = false;
 
   constructor(public userService:UserService) { }
 
@@ -21,14 +22,14 @@ export class AdminComponent implements OnInit {
     this.userService.getSettings().subscribe(settings => {
       this.settings = settings;
     });
-    this.questionsList = this.userService.getQuestionsList();
+    this.userService.getHttpQuestionsList().subscribe(response => {
+      this.questionsList = response['questions'];
+    });
   }
 
   nextQuestion(i) {
     if(i <  Object.keys(this.questionsList).length) {
-        this.userService.nextQuestion(this.questionsList[i]);
-    } else {
-        alert('Ето был последний вопрос');
+      this.userService.nextQuestion(this.questionsList[i]);
     }
   }
 
@@ -36,11 +37,18 @@ export class AdminComponent implements OnInit {
     this.userService.startGame(this.questionsList[0]);
   }
 
+  finishGame() {
+    this.userService.finishGame();
+  }
+
   clearRoom() {
     this.userService.clearRoom();
   }
 
-  timeOver() {
+  timeOver(i) {
+    if( i == Object.keys(this.questionsList).length) {
+      this.userService.lastQuestion();
+    }
     this.userService.timeOver();
   }
 }

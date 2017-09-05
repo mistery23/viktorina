@@ -13,6 +13,7 @@ export class LargeScreenComponent implements OnInit {
   settings: any;
   currentIssue: any;
   statistics: any;
+  winners: any;
 
   constructor(public userService:UserService) { }
 
@@ -28,6 +29,9 @@ export class LargeScreenComponent implements OnInit {
     });
     this.userService.getStatistics().subscribe(statistics => {
       this.statistics = statistics;
+    });
+    this.userService.getWinners().subscribe(winners => {
+      this.winners = winners;
     });
   }
 }

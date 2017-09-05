@@ -1,27 +1,46 @@
 <app-header-user></app-header-user>
 
-<div class="time-over" *ngIf="settings?.largeScreen == 'statistics'">Время вышло</div>
-
-<div class="top-section" >
-  <div class="left-icon icon-question"></div>
-  <div class="text" *ngIf="currentIssue?.number">
-    <div class="number">{{currentIssue?.number}})</div>{{currentIssue?.question}}
+<div *ngIf="!settings?.userResult; else userResult">
+  <div class="time-over" *ngIf="settings?.largeScreen == 'statistics'">Время вышло</div>
+  <div class="top-section" >
+    <div class="left-icon icon-question"></div>
+    <div class="text" *ngIf="currentIssue?.number">
+      <div class="number">{{currentIssue?.number}})</div>{{currentIssue?.question}}
+    </div>
+    <div class="text" *ngIf="!currentIssue?.number && user?.firstName" routerLink="/login">Ожидайте начала игры!</div>
   </div>
-  <div class="text" *ngIf="!currentIssue?.number" routerLink="/login">Ожидайте начала игры!</div>
-</div>
-
-<div class="answer-options" *ngIf="currentIssue?.number">
-  <div class="possible-answer" answer *ngFor="let item of currentIssue?.answers; let i = index">
-    <div class="check-overlay"></div>
-    <div class="number" (click)="answer( currentIssue?.number, i, item.answer)">{{i + 1}}</div>
-    <div class="text">{{item.answer}}</div>
+  <div class="answer-options" *ngIf="currentIssue?.number">
+    <div class="possible-answer" answer *ngFor="let item of currentIssue?.answers; let i = index">
+      <div class="check-overlay"></div>
+      <div class="number" (click)="answer( currentIssue?.number, i, item.answer, currentIssue?.correct, user?.firstName, winner?.count)">{{i + 1}}</div>
+      <div class="text">{{item.answer}}</div>
+    </div>
   </div>
 </div>
-
-<!--<div class="answer-options" *ngIf="currentIssue?.number">-->
-  <!--<div class="possible-answer" [ngClass]="{active: user?.questions[currentIssue?.number > 0 ? currentIssue?.number - 1 : 0]?.checkIssue == i }" *ngFor="let item of currentIssue?.answers; let i = index">-->
-    <!--<div class="check-overlay" *ngIf="user?.questions[currentIssue?.number - 1]?.checkIssue == 0 || user?.questions[currentIssue?.number - 1]?.checkIssue"></div>-->
-    <!--<div class="number" (click)="answer( currentIssue?.number, i, item.answer)">{{i + 1}}</div>-->
-    <!--<div class="text">{{item.answer}}</div>-->
-  <!--</div>-->
-<!--</div>-->
+<ng-template #userResult>
+  <div class="results">
+    <div class="top-title">Результаты</div>
+    <div class="results-list">
+      <div class="item" *ngFor="let item of questionsList; let i = index">
+        <div class="number">{{item?.number}})</div>
+        <div class="content">
+          <div class="text">{{item?.question}}</div>
+          <div class="results-block">
+            <div class="answer">
+              <div class="title">Правильный ответ</div>
+              <div *ngFor="let itemAnswer of item?.answers; let id = index">
+                <div class="answer-text" *ngIf="id == item?.correct">{{itemAnswer?.answer}}</div>
+              </div>
+            </div>
+            <div class="answer">
+              <div class="check success" [ngClass]="{success: user?.questions[i]?.checkIssue == item?.correct, danger: user?.questions[i]?.checkIssue != item?.correct}"></div>
+              <div class="title" *ngIf="user?.questions[i]?.answer">Вы ответили</div>
+              <div class="title" *ngIf="!user?.questions[i]?.answer">Вы не ответили</div>
+              <div class="answer-text" *ngIf="user?.questions[i]?.answer">{{user?.questions[i]?.answer}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

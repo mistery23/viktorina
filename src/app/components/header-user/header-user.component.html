@@ -2,8 +2,13 @@
   <div class="logo">
     <img  src="../../../assets/images/header-logo.png" alt="">
   </div>
-  <div class="user" *ngIf="user?.firstName" routerLink="/login">
+  <div class="user" *ngIf="user?.firstName; else exit" routerLink="/login">
     <div class="icon"></div>
     <div class="text">{{user?.firstName}}</div>
   </div>
+  <ng-template #exit>
+    <div class="user" routerLink="/login">
+      <div class="text">Войдите заново</div>
+    </div>
+  </ng-template>
 </div>

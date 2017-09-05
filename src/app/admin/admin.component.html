@@ -1,9 +1,14 @@
 <app-header></app-header>
+
+<div class="time-over" *ngIf="settings?.largeScreen == 'statistics'">Время остановлено</div>
+<div class="time-over" *ngIf="settings?.largeScreen == 'winners'">Конец игры</div>
+
 <div class="admin-btns-group">
-  <button type="button" (click)="timeOver()" *ngIf="currentIssue?.number && settings?.largeScreen != 'statistics'">Время вышло</button>
-  <button type="button" (click)="nextQuestion(currentIssue?.number)" *ngIf="currentIssue?.number && settings?.largeScreen == 'statistics'">Следующий вопрос</button>
-  <button type="button" (click)="startGame()" *ngIf="!currentIssue?.number">Старт</button>
-  <button type="button" (click)="clearRoom()" *ngIf="currentIssue?.number">Очистить комнату</button>
+  <button type="button" (click)="timeOver(currentIssue?.number)" *ngIf="currentIssue?.number && settings?.largeScreen != 'statistics' && !settings?.finish && !settings?.clearRoom">Время вышло</button>
+  <button type="button" (click)="nextQuestion(currentIssue?.number)" *ngIf="currentIssue?.number && settings?.largeScreen == 'statistics' && settings?.clearRoom == false && !settings?.finish">Следующий вопрос</button>
+  <button type="button" (click)="finishGame()" *ngIf="settings?.finish">Финиш</button>
+  <button type="button" (click)="startGame()" *ngIf="!currentIssue?.number && settings?.largeScreen != 'winners'">Старт</button>
+  <button type="button" (click)="clearRoom()" *ngIf="settings?.clearRoom == true && !settings?.finish">Очистить комнату</button>
 </div>
 
 <div class="top-section" >

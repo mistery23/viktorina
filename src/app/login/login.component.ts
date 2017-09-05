@@ -15,18 +15,18 @@ export class LoginComponent implements OnInit  {
   constructor(public userService:UserService, public db:AngularFireDatabase) {}
 
   ngOnInit() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        let uid = user.uid;
-        let item = this.db.object(`/users/${uid}`, { preserveSnapshot: true });
-        item.subscribe(snapshot => {
-          if( snapshot.val().firstName) {
-            console.log( snapshot.val().firstName);
-            this.user = snapshot.val().firstName;
-          }
-        });
-      }
-    });
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     let uid = user.uid;
+    //     let item = this.db.object(`/users/${uid}`, { preserveSnapshot: true });
+    //     item.subscribe(snapshot => {
+    //       if( snapshot.val().firstName) {
+    //         console.log( snapshot.val().firstName);
+    //         this.user = snapshot.val().firstName;
+    //       }
+    //     });
+    //   }
+    // });
   }
 
   login() {

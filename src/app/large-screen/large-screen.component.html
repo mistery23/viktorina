@@ -9,7 +9,7 @@
         <div class="text">{{statistics?.question}}</div>
       </div>
       <div class="statistics-block">
-          <div class="item" *ngFor="let answer of statistics?.answers">
+          <div class="item" *ngFor="let answer of statistics?.answers" [ngClass]="{hidden: answer?.issue == false}">
             <div class="check" [ngClass]="{danger: statistics?.correct != answer?.text.checkIssue, success: statistics?.correct == answer?.text.checkIssue}"></div>
             <div class="content">
               <div class="text">
@@ -47,17 +47,9 @@
   <div class="winners" *ngSwitchCase="'winners'">
     <div class="top-title">Победители</div>
     <div class="list">
-      <div class="item">
-        <div class="number">1</div>
-        <div class="text">Иванов Иван</div>
-      </div>
-      <div class="item">
-        <div class="number">2</div>
-        <div class="text">Иванов Иван</div>
-      </div>
-      <div class="item">
-        <div class="number">3</div>
-        <div class="text">Иванов Иван</div>
+      <div class="item" *ngFor="let winner of winners; let i = index">
+        <div class="number">{{i+1}}</div>
+        <div class="text">{{winner?.userName}} ({{winner?.count}})</div>
       </div>
     </div>
   </div>
