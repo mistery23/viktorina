@@ -10,7 +10,7 @@
     <div class="text" *ngIf="!currentIssue?.number && user?.firstName" routerLink="/login">Ожидайте начала игры!</div>
   </div>
   <div class="answer-options" *ngIf="currentIssue?.number">
-    <div class="possible-answer" answer (click)="answer( currentIssue?.number, i, item.answer, currentIssue?.correct, user?.firstName, winner?.count)" *ngFor="let item of currentIssue?.answers; let i = index">
+    <div class="possible-answer" answer (click)="answer( currentIssue?.number, i, item.answer, currentIssue?.correct, user?.firstName, winner?.count, user?.firstName)" *ngFor="let item of currentIssue?.answers; let i = index">
       <div class="check-overlay"></div>
       <div class="number">{{i + 1}}</div>
       <div class="text">{{item.answer}}</div>

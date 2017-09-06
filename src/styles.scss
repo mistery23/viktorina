@@ -415,15 +415,18 @@ body {
       font-size: 40px;
       font-weight: 700;
       line-height: 1;
-      width: 54px;
+      width: 65px;
+      text-align: right;
+      padding-right: 10px;
     }
     .content {
-      max-width: 311px;
+      width: 311px;
       .text {
         font-size: 18px;
         font-weight: 400;
         line-height: 22px;
         margin-bottom: 15px;
+        min-height: 44px;
       }
       .results-block {
         border-radius: 5px;
@@ -474,6 +477,7 @@ body {
       .number {
         font-size: 26px;
         width: 54px;
+        text-align: left;
       }
       .content {
         max-width: 100%;
@@ -482,6 +486,7 @@ body {
           font-size: 14px;
           line-height: 17px;
           margin-bottom: 13px;
+          min-height: auto;
         }
         .results-block {
           padding: 13px 35px 18px;

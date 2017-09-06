@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user',
@@ -14,7 +15,7 @@ export class UserComponent implements OnInit {
   winner: any;
   questionsList: any;
 
-  constructor(public userService:UserService) { }
+  constructor(public userService:UserService, private router: Router) { }
 
   ngOnInit() {
     this.userService.getCurrentIssue().subscribe(issue => {
@@ -34,8 +35,12 @@ export class UserComponent implements OnInit {
     });
   }
 
-  answer(numberIssue, checkIssue, answer, correct, name, count) {
-    this.userService.answer(numberIssue, checkIssue, answer, correct, name, count);
+  answer(numberIssue, checkIssue, answer, correct, name, count, firstName) {
+    if(firstName) {
+      this.userService.answer(numberIssue, checkIssue, answer, correct, name, count);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
-
+  
 }
