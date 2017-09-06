@@ -46,12 +46,15 @@
   </div>
   <div class="winners" *ngSwitchCase="'winners'">
     <div class="top-title">Победители</div>
-    <div class="list">
-      <div class="item" *ngFor="let winner of winners; let i = index">
-        <div class="number">{{i+1}}</div>
-        <div class="text">{{winner?.userName}} ({{winner?.count}})</div>
+    <div class="list" *ngIf="winners | lengthOfArray; else notWinners" >
+      <div class="item" *ngFor="let winner of winners; let i = index" [ngClass]="{hidden: winners[2].count > winner?.count}">
+        <div class="number">{{winner?.count}}</div>
+        <div class="text">{{winner?.userName}}</div>
       </div>
     </div>
+    <ng-template #notWinners>
+      <div class="time-over">Никто не ответил ни на один вопрос</div>
+    </ng-template>
   </div>
   <div *ngSwitchCase="'question'">
     <div class="top-section" >

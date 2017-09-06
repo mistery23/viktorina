@@ -10,9 +10,9 @@
     <div class="text" *ngIf="!currentIssue?.number && user?.firstName" routerLink="/login">Ожидайте начала игры!</div>
   </div>
   <div class="answer-options" *ngIf="currentIssue?.number">
-    <div class="possible-answer" answer *ngFor="let item of currentIssue?.answers; let i = index">
+    <div class="possible-answer" answer (click)="answer( currentIssue?.number, i, item.answer, currentIssue?.correct, user?.firstName, winner?.count)" *ngFor="let item of currentIssue?.answers; let i = index">
       <div class="check-overlay"></div>
-      <div class="number" (click)="answer( currentIssue?.number, i, item.answer, currentIssue?.correct, user?.firstName, winner?.count)">{{i + 1}}</div>
+      <div class="number">{{i + 1}}</div>
       <div class="text">{{item.answer}}</div>
     </div>
   </div>
@@ -20,7 +20,7 @@
 <ng-template #userResult>
   <div class="results">
     <div class="top-title">Результаты</div>
-    <div class="results-list">
+    <div class="results-list" *ngIf="user?.questions; else notQuestions">
       <div class="item" *ngFor="let item of questionsList; let i = index">
         <div class="number">{{item?.number}})</div>
         <div class="content">
@@ -42,5 +42,8 @@
         </div>
       </div>
     </div>
+    <ng-template #notQuestions>
+      <div class="time-over">Вы не ответили ни на один вопрос</div>
+    </ng-template>
   </div>
 </ng-template>
