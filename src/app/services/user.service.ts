@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/map';
-import {User} from "../models/User";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 
@@ -10,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 export class UserService {
 
   questionsList:{};
-  users: FirebaseListObservable<User[]>;
+  users: FirebaseListObservable<any[]>;
   user: FirebaseObjectObservable<any>;
   currentIssue: FirebaseObjectObservable<any>;
   settings: FirebaseObjectObservable<any>;
@@ -25,11 +24,11 @@ export class UserService {
       if (user) {
         this.uid = user.uid;
         this.user = this.db.object(`/users/${user.uid}`);
-        this.winner = this.db.object(`/winners/${this.uid}`);
+        this.winner = this.db.object(`/winners/${user.uid}`);
       }
     });
     this.allQuestions = this.db.object(`/questions`) as FirebaseObjectObservable<any[]>;
-    this.users = this.db.list('/users') as FirebaseListObservable<User[]>;
+    this.users = this.db.list('/users', {query: {orderByChild: 'firstName'}}) as FirebaseListObservable<any[]>;
     this.currentIssue = this.db.object(`/current-issue`) as FirebaseObjectObservable<any[]>;
     this.settings = this.db.object(`/settings`) as FirebaseObjectObservable<any[]>;
     this.statistics = this.db.object(`/statistics`) as FirebaseObjectObservable<any[]>;
@@ -200,7 +199,6 @@ export class UserService {
     let setStatisticsText = this.db.object(`/statistics/answers/${checkIssue}/text`) as FirebaseObjectObservable<any[]>;
     let setStatisticsIssue = this.db.list(`/statistics/answers/${checkIssue}/issue`) as FirebaseListObservable<any[]>;
     let setStatisticsCountIssue = this.db.list(`/statistics/countIssue`) as FirebaseListObservable<any[]>;
-
     setStatisticsText.set({text: answer, checkIssue: checkIssue});
     setStatisticsIssue.push({issue: this.uid});
     setStatisticsCountIssue.push({issue: this.uid});
