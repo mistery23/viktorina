@@ -18,6 +18,8 @@ import {AuthGuard} from "./guards/auth.guard";
 import {LengthOfArrayPipe} from "./pipes/length-of-array";
 import { AnswerDirective } from './directives/answer.directive';
 import {HttpClientModule} from "@angular/common/http";
+import {ReversePipe} from "./pipes/reverse";
+import { WinnersComponent } from './winners/winners.component';
 
 const appRoutes: Routes =[
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -25,6 +27,7 @@ const appRoutes: Routes =[
   {path: 'login', component: LoginComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'large-screen', component: LargeScreenComponent},
+  {path: 'winners', component: WinnersComponent},
   { path: '**', redirectTo: '/user'}
 ];
 
@@ -38,7 +41,9 @@ const appRoutes: Routes =[
     LargeScreenComponent,
     HeaderUserComponent,
     LengthOfArrayPipe,
-    AnswerDirective
+    AnswerDirective,
+    ReversePipe,
+    WinnersComponent
   ],
   imports: [
     BrowserModule,

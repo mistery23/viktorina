@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../services/user.service";
+import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2/database";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-large-screen',
@@ -12,9 +14,9 @@ export class LargeScreenComponent implements OnInit {
   settings: any;
   currentIssue: any;
   statistics: any;
-  winners: any;
+  goToWinners: FirebaseObjectObservable<any>;
 
-  constructor(public userService:UserService) { }
+  constructor(public userService:UserService, public db:AngularFireDatabase, private router: Router) { }
 
   ngOnInit() {
     this.userService.getUsers().subscribe(users => {
@@ -29,8 +31,11 @@ export class LargeScreenComponent implements OnInit {
     this.userService.getStatistics().subscribe(statistics => {
       this.statistics = statistics;
     });
-    this.userService.getWinners().subscribe(winners => {
-      this.winners = winners;
+    this.goToWinners = this.db.object(`/settings`, { preserveSnapshot: true });
+    this.goToWinners.subscribe(snapshots => {
+      if(snapshots.val().largeScreen == 'winners') {
+        this.router.navigate(['/winners']);
+      }
     });
   }
 }

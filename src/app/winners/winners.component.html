@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div class="winners">
+  <div class="top-title">Победители</div>
+  <div class="list" *ngIf="winners | lengthOfArray; else notWinners" >
+    <div class="item" *ngFor="let winner of winners; let i = index" [ngClass]="{hidden: (winners | reverse)[2]?.count > winner?.count}">
+      <div class="number">{{i+1}}</div>
+      <div class="text">{{winner?.userName}} ({{winner?.count}})</div>
+    </div>
+  </div>
+  <ng-template #notWinners>
+    <div class="time-over">Никто не ответил ни на один вопрос</div>
+  </ng-template>
+</div>
