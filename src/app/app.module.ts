@@ -16,7 +16,6 @@ import {FormsModule} from "@angular/forms";
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {LengthOfArrayPipe} from "./pipes/length-of-array";
-import { AnswerDirective } from './directives/answer.directive';
 import {HttpClientModule} from "@angular/common/http";
 import {ReversePipe} from "./pipes/reverse";
 import { WinnersComponent } from './winners/winners.component';
@@ -41,7 +40,6 @@ const appRoutes: Routes =[
     LargeScreenComponent,
     HeaderUserComponent,
     LengthOfArrayPipe,
-    AnswerDirective,
     ReversePipe,
     WinnersComponent
   ],

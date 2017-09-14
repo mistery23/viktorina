@@ -197,11 +197,11 @@ export class UserService {
 
   setStatistics(checkIssue, answer) {
     let setStatisticsText = this.db.object(`/statistics/answers/${checkIssue}/text`) as FirebaseObjectObservable<any[]>;
-    let setStatisticsIssue = this.db.list(`/statistics/answers/${checkIssue}/issue`) as FirebaseListObservable<any[]>;
-    let setStatisticsCountIssue = this.db.list(`/statistics/countIssue`) as FirebaseListObservable<any[]>;
+    let setStatisticsIssue = this.db.object(`/statistics/answers/${checkIssue}/issue/${this.uid}`) as FirebaseObjectObservable<any[]>;
+    let setStatisticsCountIssue = this.db.object(`/statistics/countIssue/${this.uid}`) as FirebaseObjectObservable<any[]>;
     setStatisticsText.set({text: answer, checkIssue: checkIssue});
-    setStatisticsIssue.push({issue: this.uid});
-    setStatisticsCountIssue.push({issue: this.uid});
+    setStatisticsIssue.update({issue: true});
+    setStatisticsCountIssue.update({issue: true});
   }
 
   setWinner(userName, count) {
