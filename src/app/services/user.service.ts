@@ -8,7 +8,6 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class UserService {
 
-  questionsList:{};
   users: FirebaseListObservable<any[]>;
   user: FirebaseObjectObservable<any>;
   currentIssue: FirebaseObjectObservable<any>;
@@ -48,11 +47,6 @@ export class UserService {
     }
   }
 
-  allQuestionsUpdate(questions) {
-    this.questionsList = questions;
-    this.allQuestions.update(questions);
-  }
-
   getWinner() {
     return this.winner;
   }
@@ -63,10 +57,6 @@ export class UserService {
 
   getAllQuestions() {
     return this.allQuestions;
-  }
-
-  getHttpQuestionsList() {
-    return this.http.get('http://apchome.ru/api/game-millionaire/index');
   }
 
   getStatistics() {

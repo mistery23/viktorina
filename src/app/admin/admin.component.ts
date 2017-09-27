@@ -21,9 +21,8 @@ export class AdminComponent implements OnInit {
     this.userService.getSettings().subscribe(settings => {
       this.settings = settings;
     });
-    this.userService.getHttpQuestionsList().subscribe(response => {
-      this.questionsList = response['questions'];
-      this.userService.allQuestionsUpdate(response['questions']);
+    this.userService.getAllQuestions().subscribe(questions => {
+      this.questionsList = questions;
     });
   }
 
